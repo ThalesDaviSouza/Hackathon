@@ -19,6 +19,9 @@ namespace SimuladorCredito.Api.Controllers
         public IActionResult Get([FromBody] CreateSimulationDto dto)
         {
             var simulacao = _simulacaoAppService.Simulate(dto.prazo, dto.ValorDesejado);
+
+            // TODO: Persistir no banco e salvar no event hub
+
             return Ok(simulacao);
         }        
     }

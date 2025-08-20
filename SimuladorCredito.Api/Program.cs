@@ -6,6 +6,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfig();
 builder.Services.AddControllers();
 builder.Services.AddDependencyInjection();
+builder.Services.AddOpenTelemetryConfiguration("SimuladorCreditoApi");
 
 var app = builder.Build();
 
@@ -16,7 +17,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseErrorHandling();
+app.UseCustomMiddlewares();
 
 app.MapControllers();
 
