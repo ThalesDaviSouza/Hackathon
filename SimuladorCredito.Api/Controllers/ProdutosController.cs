@@ -12,13 +12,16 @@ namespace SimuladorCredito.Api.Controllers
         public ProdutosController(ProdutoAppService produtoAppService)
         {
             _produtoAppService = produtoAppService;
-        }   
+        }
 
         [HttpGet]
-        public IActionResult Get()
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
+        public async Task<IActionResult> Get()
         {
             var produtos = _produtoAppService.GetAll();
+            await Task.Delay(5000);
+
             return Ok(produtos);
-        }        
+        }
     }
 }

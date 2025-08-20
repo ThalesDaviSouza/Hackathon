@@ -4,10 +4,13 @@ namespace SimuladorCredito.Api.Configuration
 {
     public static class MiddlewareConfiguration
     {
-        public static IApplicationBuilder UseCustomMiddlewares(this IApplicationBuilder app)
+        public static IApplicationBuilder ConfigMiddlewares(this IApplicationBuilder app)
         {
             app.UseMiddleware<ErrorMiddleware>();
-            return app.UseMiddleware<MetricsMiddleware>();
+            app.UseResponseCaching();
+            app.UseMiddleware<MetricsMiddleware>();
+
+            return app;
         }
     }
 }
