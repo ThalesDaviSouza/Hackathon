@@ -18,6 +18,7 @@ namespace SimuladorCredito.Api.Configuration
             // Serviços de Infra
             services.AddScoped<IProdutoService, ProdutoService>();
             services.AddScoped<IResultadoSimulacaoCalculator, SACCalculator>();
+            services.AddScoped<IResultadoSimulacaoCalculator, PRICECalculator>();
 
             // Serviços de Application
             services.AddScoped<ProdutoAppService>();
