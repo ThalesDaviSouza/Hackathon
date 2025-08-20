@@ -3,6 +3,7 @@ using SimuladorCredito.Api.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigServices();
+builder.ConfigSerilog();
 
 var app = builder.Build();
 
