@@ -4,6 +4,7 @@ using SimuladorCredito.Domain.Entities;
 using SimuladorCredito.Infra.Services;
 using SimuladorCredito.Interfaces.Services;
 using SimuladorCredito.Application.Services;
+using SimuladorCredito.Infra.Services.ResultadoSimulacaoCalculators;
 
 namespace SimuladorCredito.Api.Configuration
 {
@@ -16,9 +17,11 @@ namespace SimuladorCredito.Api.Configuration
 
             // Serviços de Infra
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IResultadoSimulacaoCalculator, SACCalculator>();
 
             // Serviços de Application
             services.AddScoped<ProdutoAppService>();
+            services.AddScoped<SimulacaoAppService>();
 
             return services;
         }
