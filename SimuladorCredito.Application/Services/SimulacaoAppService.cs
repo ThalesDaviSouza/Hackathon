@@ -11,16 +11,19 @@ namespace SimuladorCredito.Application.Services
         private readonly IEnumerable<IResultadoSimulacaoCalculator> _calculators;
         private readonly ProdutoAppService _produtoAppService;
         private readonly IMapper _mapper;
+        private readonly IEventHubService _eventHubService;
 
         public SimulacaoAppService(
             IEnumerable<IResultadoSimulacaoCalculator> calculators,
             ProdutoAppService produtoAppService,
-            IMapper mapper
+            IMapper mapper,
+            IEventHubService eventHubService
         )
         {
             _calculators = calculators;
             _produtoAppService = produtoAppService;
             _mapper = mapper;
+            _eventHubService = eventHubService;
         }
 
         public async Task<SimulationCreatedDto> Simulate(short prazo, decimal valorDesejado)
@@ -41,7 +44,11 @@ namespace SimuladorCredito.Application.Services
                 simulacao.ResultadosSimulacao.Add(resultadoSimulacao);
             }
 
-            return _mapper.Map<SimulationCreatedDto>(simulacao);
+            var simulacaoDto = _mapper.Map<SimulationCreatedDto>(simulacao);
+
+            await _eventHubService.EnviarAsync(simulacaoDto);
+
+            return simulacaoDto;
         }
     }
 }
