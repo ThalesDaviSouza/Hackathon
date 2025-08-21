@@ -46,7 +46,7 @@ namespace SimuladorCredito.Application.Services
 
             var simulacaoDto = _mapper.Map<SimulationCreatedDto>(simulacao);
 
-            await _eventHubService.EnviarAsync(simulacaoDto);
+            await _eventHubService.SendAsync(simulacaoDto);
 
             return simulacaoDto;
         }

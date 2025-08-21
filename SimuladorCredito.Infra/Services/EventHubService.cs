@@ -18,7 +18,7 @@ namespace SimuladorCredito.Infra.Services
             _eventHubName = configuration["EVENTHUB_NAME"]!;
         }
 
-        public async Task EnviarAsync<T>(T dto)
+        public async Task SendAsync<T>(T dto)
         {
             // Se falhar adicionar o nome também
             await using var producerClient = new EventHubProducerClient(_connectionString);

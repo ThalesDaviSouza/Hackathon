@@ -20,7 +20,7 @@ namespace SimuladorCredito.Api.Controllers
         {
             var simulacao = await _simulacaoAppService.Simulate(dto.prazo, dto.ValorDesejado);
 
-            // TODO: Persistir no banco local e salvar no event hub
+            // TODO: Persistir no banco local
 
             return Ok(simulacao);
         }        
