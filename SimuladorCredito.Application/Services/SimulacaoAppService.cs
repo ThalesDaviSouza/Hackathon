@@ -1,3 +1,5 @@
+using AutoMapper;
+using SimuladorCredito.Application.Dtos.Responses;
 using SimuladorCredito.Domain.Entities;
 using SimuladorCredito.Domain.Exceptions.HttpExceptions;
 using SimuladorCredito.Interfaces.Services;
@@ -8,14 +10,20 @@ namespace SimuladorCredito.Application.Services
     {
         private readonly IEnumerable<IResultadoSimulacaoCalculator> _calculators;
         private readonly ProdutoAppService _produtoAppService;
+        private readonly IMapper _mapper;
 
-        public SimulacaoAppService(IEnumerable<IResultadoSimulacaoCalculator> calculators, ProdutoAppService produtoAppService)
+        public SimulacaoAppService(
+            IEnumerable<IResultadoSimulacaoCalculator> calculators,
+            ProdutoAppService produtoAppService,
+            IMapper mapper
+        )
         {
             _calculators = calculators;
             _produtoAppService = produtoAppService;
+            _mapper = mapper;
         }
 
-        public async Task<Simulacao> Simulate(short prazo, decimal valorDesejado)
+        public async Task<SimulationCreatedDto> Simulate(short prazo, decimal valorDesejado)
         {
             var produto = await _produtoAppService.GetProdutoToSimulation(valorDesejado);
 
@@ -25,6 +33,7 @@ namespace SimuladorCredito.Application.Services
             decimal taxaJuros = produto.PcTaxaJuros;
 
             Simulacao simulacao = new Simulacao();
+            simulacao.Produto = produto;
 
             foreach (var calculator in _calculators)
             {
@@ -32,7 +41,7 @@ namespace SimuladorCredito.Application.Services
                 simulacao.ResultadosSimulacao.Add(resultadoSimulacao);
             }
 
-            return simulacao;
+            return _mapper.Map<SimulationCreatedDto>(simulacao);
         }
     }
 }

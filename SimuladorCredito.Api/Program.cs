@@ -6,6 +6,7 @@ Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigServices();
+builder.Services.ConfigProfiles();
 builder.ConfigSerilog();
 builder.ConfigDbContexts();
 
