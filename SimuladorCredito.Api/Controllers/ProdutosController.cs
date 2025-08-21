@@ -18,8 +18,7 @@ namespace SimuladorCredito.Api.Controllers
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> Get()
         {
-            var produtos = _produtoAppService.GetAll();
-            await Task.Delay(5000);
+            var produtos = await _produtoAppService.GetAll();
 
             return Ok(produtos);
         }

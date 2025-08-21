@@ -1,13 +1,16 @@
+using DotNetEnv;
 using SimuladorCredito.Api.Configuration;
+
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigServices();
 builder.ConfigSerilog();
+builder.ConfigDbContexts();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwaggerConfig();

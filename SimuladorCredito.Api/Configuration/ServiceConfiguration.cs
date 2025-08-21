@@ -1,5 +1,3 @@
-using SimuladorCredito.Api.Middlewares;
-
 namespace SimuladorCredito.Api.Configuration
 {
     public static class ServiceConfiguration

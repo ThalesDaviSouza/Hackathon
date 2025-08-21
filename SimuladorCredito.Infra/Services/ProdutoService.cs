@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using SimuladorCredito.Domain.Entities;
 using SimuladorCredito.Interfaces.Repositories;
 using SimuladorCredito.Interfaces.Services;
@@ -12,9 +13,9 @@ namespace SimuladorCredito.Infra.Services
             _produtoRepository = produtoRepository;
         }
 
-        public IEnumerable<Produto> GetAll()
+        public async Task<IEnumerable<Produto>> GetAll()
         {
-            return _produtoRepository.Get();
+            return await _produtoRepository.Get();
         }
     }
 }

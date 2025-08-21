@@ -12,9 +12,9 @@ namespace SimuladorCredito.Application.Services
             _produtoService = produtoService;
         }
 
-        public IEnumerable<Produto> GetAll()
+        public async Task<IEnumerable<Produto>> GetAll()
         {
-            return _produtoService.GetAll();
+            return await _produtoService.GetAll();
         }
     }
 }

@@ -1,20 +1,27 @@
+using Microsoft.EntityFrameworkCore;
 using SimuladorCredito.Domain.Entities;
+using SimuladorCredito.Infra.Persistance;
 using SimuladorCredito.Interfaces.Repositories;
 
 namespace SimuladorCredito.Infra.Repositories
 {
     public class ProdutoRepository : IProdutoRepository<Produto>
     {
-        public IEnumerable<Produto> Get()
+        private readonly ProdutoDbContext _context;
+
+        public ProdutoRepository(ProdutoDbContext context)
         {
-            //TODO: conectar com o banco
-            return new List<Produto>
-            {
-                new Produto { CoProduto = 1, NoProduto = "Produto 1"},
-                new Produto { CoProduto = 2, NoProduto = "Produto 2"},
-                new Produto { CoProduto = 3, NoProduto = "Produto 3"},
-                new Produto { CoProduto = 4, NoProduto = "Produto 4"},
-            };
+            _context = context;
         }
-    }
+
+        public Task<Produto> GetToSimulate(decimal valorDesejado)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Produto>> Get()
+        {
+            return await _context.Produtos.AsNoTracking().ToListAsync();
+        }
+  }
 }
