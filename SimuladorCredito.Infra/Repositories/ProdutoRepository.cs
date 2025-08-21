@@ -14,9 +14,13 @@ namespace SimuladorCredito.Infra.Repositories
             _context = context;
         }
 
-        public Task<Produto> GetToSimulate(decimal valorDesejado)
+        public async Task<Produto?> GetToSimulation(decimal valorDesejado)
         {
-            throw new NotImplementedException();
+            return await _context.Produtos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(produto =>
+                    produto.VrMinimo <= valorDesejado && (produto.VrMaximo == null || produto.VrMaximo >= valorDesejado)
+                )!;
         }
 
         public async Task<IEnumerable<Produto>> Get()

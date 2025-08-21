@@ -16,11 +16,11 @@ namespace SimuladorCredito.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Get([FromBody] CreateSimulationDto dto)
+        public async Task<IActionResult> Get([FromBody] CreateSimulationDto dto)
         {
-            var simulacao = _simulacaoAppService.Simulate(dto.prazo, dto.ValorDesejado);
+            var simulacao = await _simulacaoAppService.Simulate(dto.prazo, dto.ValorDesejado);
 
-            // TODO: Persistir no banco e salvar no event hub
+            // TODO: Persistir no banco local e salvar no event hub
 
             return Ok(simulacao);
         }        

@@ -16,5 +16,10 @@ namespace SimuladorCredito.Application.Services
         {
             return await _produtoService.GetAll();
         }
+
+        public async Task<Produto?> GetProdutoToSimulation(decimal valorDesejado)
+        {
+            return await _produtoService.GetProdutoToSimulation(valorDesejado);
+        }
     }
 }

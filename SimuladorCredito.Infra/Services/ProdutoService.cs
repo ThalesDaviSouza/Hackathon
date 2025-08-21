@@ -17,5 +17,10 @@ namespace SimuladorCredito.Infra.Services
         {
             return await _produtoRepository.Get();
         }
+
+        public async Task<Produto?> GetProdutoToSimulation(decimal valorDesejado)
+        {
+            return await _produtoRepository.GetToSimulation(valorDesejado)!;
+        }
     }
 }

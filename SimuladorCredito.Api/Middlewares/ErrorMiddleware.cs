@@ -1,5 +1,5 @@
-using System.Net;
 using System.Text.Json;
+using SimuladorCredito.Domain.Exceptions.HttpExceptions;
 
 namespace SimuladorCredito.Api.Middlewares
 {
@@ -30,7 +30,7 @@ namespace SimuladorCredito.Api.Middlewares
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.StatusCode = GetStatusCode(exception);
 
             var response = new
             {
@@ -41,6 +41,14 @@ namespace SimuladorCredito.Api.Middlewares
 
             var json = JsonSerializer.Serialize(response);
             return context.Response.WriteAsync(json);
+        }
+
+        private static int GetStatusCode(Exception ex)
+        {
+            if (ex is NotFoundException) return StatusCodes.Status404NotFound;
+            if (ex is BadRequestException) return StatusCodes.Status400BadRequest;
+
+            return StatusCodes.Status500InternalServerError;
         }
     }
 }
