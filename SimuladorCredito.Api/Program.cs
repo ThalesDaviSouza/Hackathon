@@ -22,4 +22,6 @@ app.ConfigMiddlewares();
 
 app.MapControllers();
 
+app.InitializateDataBase();
+
 app.Run();

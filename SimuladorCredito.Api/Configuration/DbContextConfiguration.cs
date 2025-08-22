@@ -11,6 +11,10 @@ namespace SimuladorCredito.Api.Configuration
                 options.UseSqlServer(Environment.GetEnvironmentVariable("HackathonConnection"))
             );
 
+            builder.Services.AddDbContext<BancoLocalDbContext>(options =>
+                options.UseSqlServer(Environment.GetEnvironmentVariable("LocalConnection"))
+            );
+
             return builder;
         }
     }

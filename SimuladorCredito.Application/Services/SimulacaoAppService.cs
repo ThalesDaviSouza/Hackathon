@@ -36,7 +36,7 @@ namespace SimuladorCredito.Application.Services
             decimal taxaJuros = produto.PcTaxaJuros;
 
             Simulacao simulacao = new Simulacao();
-            simulacao.Produto = produto;
+            simulacao.CoProduto = produto.CoProduto;
 
             foreach (var calculator in _calculators)
             {
@@ -45,6 +45,9 @@ namespace SimuladorCredito.Application.Services
             }
 
             var simulacaoDto = _mapper.Map<SimulationCreatedDto>(simulacao);
+            simulacaoDto.descricaoProduto = produto.NoProduto;
+            simulacaoDto.taxaJuros = produto.PcTaxaJuros;
+
 
             await _eventHubService.SendAsync(simulacaoDto);
 
