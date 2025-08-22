@@ -46,15 +46,15 @@ namespace SimuladorCredito.Infra.Data.Migrations
                 name: "Parcelas",
                 columns: table => new
                 {
+                    CO_SIMULACAO = table.Column<int>(type: "int", nullable: false),
                     CO_RESULTADO_SIMULACAO = table.Column<int>(type: "int", nullable: false),
                     NUMERO = table.Column<short>(type: "smallint", nullable: false),
-                    CO_SIMULACAO = table.Column<int>(type: "int", nullable: false),
                     VALOR_AMORTIZACAO = table.Column<decimal>(type: "decimal(22,10)", precision: 22, scale: 10, nullable: false),
                     VALOR_JUROS = table.Column<decimal>(type: "decimal(22,10)", precision: 22, scale: 10, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Parcelas", x => new { x.CO_RESULTADO_SIMULACAO, x.NUMERO });
+                    table.PrimaryKey("PK_Parcelas", x => new { x.CO_SIMULACAO, x.CO_RESULTADO_SIMULACAO, x.NUMERO });
                     table.ForeignKey(
                         name: "FK_Parcelas_RESULTADOS_SIMULACOES_CO_SIMULACAO_CO_RESULTADO_SIMULACAO",
                         columns: x => new { x.CO_SIMULACAO, x.CO_RESULTADO_SIMULACAO },
@@ -62,11 +62,6 @@ namespace SimuladorCredito.Infra.Data.Migrations
                         principalColumns: new[] { "CO_SIMULACAO", "CO_RESULTADO_SIMULACAO" },
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Parcelas_CO_SIMULACAO_CO_RESULTADO_SIMULACAO",
-                table: "Parcelas",
-                columns: new[] { "CO_SIMULACAO", "CO_RESULTADO_SIMULACAO" });
         }
 
         /// <inheritdoc />

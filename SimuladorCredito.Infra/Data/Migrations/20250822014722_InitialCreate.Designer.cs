@@ -11,7 +11,7 @@ using SimuladorCredito.Infra.Persistance;
 namespace SimuladorCredito.Infra.Data.Migrations
 {
     [DbContext(typeof(BancoLocalDbContext))]
-    [Migration("20250822002420_InitialCreate")]
+    [Migration("20250822014722_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -26,6 +26,10 @@ namespace SimuladorCredito.Infra.Data.Migrations
 
             modelBuilder.Entity("SimuladorCredito.Domain.Entities.Parcela", b =>
                 {
+                    b.Property<int>("CoSimulacao")
+                        .HasColumnType("int")
+                        .HasColumnName("CO_SIMULACAO");
+
                     b.Property<int>("CoResultaSimulacao")
                         .HasColumnType("int")
                         .HasColumnName("CO_RESULTADO_SIMULACAO");
@@ -33,10 +37,6 @@ namespace SimuladorCredito.Infra.Data.Migrations
                     b.Property<short>("Numero")
                         .HasColumnType("smallint")
                         .HasColumnName("NUMERO");
-
-                    b.Property<int>("CoSimulacao")
-                        .HasColumnType("int")
-                        .HasColumnName("CO_SIMULACAO");
 
                     b.Property<decimal>("ValorAmortizacao")
                         .HasPrecision(22, 10)
@@ -48,9 +48,7 @@ namespace SimuladorCredito.Infra.Data.Migrations
                         .HasColumnType("decimal(22,10)")
                         .HasColumnName("VALOR_JUROS");
 
-                    b.HasKey("CoResultaSimulacao", "Numero");
-
-                    b.HasIndex("CoSimulacao", "CoResultaSimulacao");
+                    b.HasKey("CoSimulacao", "CoResultaSimulacao", "Numero");
 
                     b.ToTable("Parcelas", (string)null);
                 });
