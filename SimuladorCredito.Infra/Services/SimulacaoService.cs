@@ -24,6 +24,8 @@ namespace SimuladorCredito.Infra.Services
             Simulacao simulacao = new Simulacao();
             simulacao.CoProduto = coProduto;
             simulacao.PcTaxaJuros = taxaJuros;
+            simulacao.Prazo = prazo;
+            simulacao.ValorDesajado = valorDesejado;
 
             foreach (var calculator in calculators)
             {

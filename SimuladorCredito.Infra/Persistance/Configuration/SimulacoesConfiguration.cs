@@ -18,6 +18,10 @@ namespace SimuladorCredito.Infra.Persistance.Configuration
                 entity.Property(p => p.PcTaxaJuros).HasColumnName("PC_TAXA_JUROS")
                     .HasPrecision(12, 8)
                     .IsRequired();
+                entity.Property(p => p.ValorDesajado).HasColumnName("VALOR_DESEJADO")
+                    .HasPrecision(22, 10)
+                    .IsRequired();
+                entity.Property(p => p.Prazo).HasColumnName("PRAZO").IsRequired();
 
             });
 

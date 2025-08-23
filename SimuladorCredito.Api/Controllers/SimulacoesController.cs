@@ -33,8 +33,6 @@ namespace SimuladorCredito.Api.Controllers
         {
             var simulacao = await _getSimulacaoAppService.GetAll();
 
-            // TODO: Persistir no banco local
-
             return Ok(simulacao);
         }        
     }

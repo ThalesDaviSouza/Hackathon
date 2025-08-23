@@ -88,6 +88,15 @@ namespace SimuladorCredito.Infra.Data.Migrations
                         .HasColumnType("decimal(12,8)")
                         .HasColumnName("PC_TAXA_JUROS");
 
+                    b.Property<short>("Prazo")
+                        .HasColumnType("smallint")
+                        .HasColumnName("PRAZO");
+
+                    b.Property<decimal>("ValorDesajado")
+                        .HasPrecision(22, 10)
+                        .HasColumnType("decimal(22,10)")
+                        .HasColumnName("VALOR_DESEJADO");
+
                     b.HasKey("CoSimulacao");
 
                     b.ToTable("Simulacoes", (string)null);
