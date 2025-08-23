@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimuladorCredito.Application.Dtos.Requests;
+using SimuladorCredito.Application.Dtos.Responses;
+using SimuladorCredito.Application.ReadModels.Responses;
 using SimuladorCredito.Application.Services;
 
 namespace SimuladorCredito.Api.Controllers
@@ -18,6 +20,7 @@ namespace SimuladorCredito.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(SimulationCreatedDto), StatusCodes.Status201Created)]
         public async Task<IActionResult> Post([FromBody] CreateSimulationDto dto)
         {
             var simulacao = await _simulacaoAppService.Simulate(dto.prazo, dto.ValorDesejado);
@@ -29,11 +32,23 @@ namespace SimuladorCredito.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        [ProducesResponseType(typeof(PagedReturnDto<SimulationResumeDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get(
+            [FromQuery] int page,
+            [FromQuery] int pageSize
+        )
         {
-            var simulacao = await _getSimulacaoAppService.GetAll();
+            var pagedResult = await _getSimulacaoAppService.Get(page, pageSize);
 
-            return Ok(simulacao);
+            return Ok(pagedResult);
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAll()
+        {
+            var pagedResult = await _getSimulacaoAppService.GetAll();
+
+            return Ok(pagedResult);
         }        
     }
 }

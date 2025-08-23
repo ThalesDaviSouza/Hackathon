@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using SimuladorCredito.Domain.Entities;
 using SimuladorCredito.Interfaces.Repositories;
 using SimuladorCredito.Interfaces.Services;
@@ -7,9 +6,9 @@ namespace SimuladorCredito.Infra.Services
 {
     public class ProdutoService : IProdutoService
     {
-        private readonly IProdutoRepository<Produto> _produtoRepository;
+        private readonly IProdutoRepository _produtoRepository;
 
-        public ProdutoService(IProdutoRepository<Produto> produtoRepository) {
+        public ProdutoService(IProdutoRepository produtoRepository) {
             _produtoRepository = produtoRepository;
         }
 

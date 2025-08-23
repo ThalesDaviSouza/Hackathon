@@ -20,7 +20,7 @@ namespace SimuladorCredito.Infra.Repositories
             await _dbSet.AddAsync(newEntity);
         }
 
-        public async Task<IEnumerable<T>> Get()
+        public virtual async Task<IEnumerable<T>> Get()
         {
             return await _dbSet.AsNoTracking().ToListAsync();
         }

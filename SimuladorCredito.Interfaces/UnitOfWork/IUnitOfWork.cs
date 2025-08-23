@@ -5,7 +5,7 @@ namespace SimuladorCredito.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IBaseLocalRepository<Simulacao> Simulacoes { get; }
+        ISimulacaoRepository Simulacoes { get; }
         IBaseLocalRepository<ResultadoSimulacao> ResultadosSimulacoes { get; }
         IBaseLocalRepository<Parcela> Parcelas { get; }
 

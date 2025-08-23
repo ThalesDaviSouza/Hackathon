@@ -1,7 +1,9 @@
+using SimuladorCredito.Domain.Entities;
+
 namespace SimuladorCredito.Interfaces.Repositories
 {
-    public interface IProdutoRepository<T> : IBaseRepository<T>
+    public interface IProdutoRepository : IBaseRepository<Produto>
     {
-        public Task<T?> GetToSimulation(decimal valorDesejado, short prazo);
+        public Task<Produto?> GetToSimulation(decimal valorDesejado, short prazo);
     }
 }

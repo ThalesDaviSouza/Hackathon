@@ -15,8 +15,8 @@ namespace SimuladorCredito.Api.Configuration
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
         {
             // Repositórios
-            services.AddScoped<IProdutoRepository<Produto>, ProdutoRepository>();
-            services.AddScoped<IBaseLocalRepository<Simulacao>, SimulacaoRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<ISimulacaoRepository, SimulacaoRepository>();
             services.AddScoped<IBaseLocalRepository<ResultadoSimulacao>, LocalRepository<ResultadoSimulacao>>();
             services.AddScoped<IBaseLocalRepository<Parcela>, LocalRepository<Parcela>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

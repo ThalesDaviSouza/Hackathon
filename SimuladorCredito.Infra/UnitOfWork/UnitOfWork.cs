@@ -12,15 +12,18 @@ namespace SimuladorCredito.Infra.UnitOfWork
         private readonly BancoLocalDbContext _context;
         private IDbContextTransaction? _transaction;
 
-        public IBaseLocalRepository<Simulacao> Simulacoes { get; private set; }
+        public ISimulacaoRepository Simulacoes { get; private set; }
         public IBaseLocalRepository<ResultadoSimulacao> ResultadosSimulacoes { get; private set; }
         public IBaseLocalRepository<Parcela> Parcelas { get; private set; }
 
-        public UnitOfWork(BancoLocalDbContext context)
+        public UnitOfWork(
+            BancoLocalDbContext context,
+            ISimulacaoRepository simulacaoRepository
+        )
         {
             _context = context;
+            Simulacoes = simulacaoRepository;
 
-            Simulacoes = new LocalRepository<Simulacao>(context);
             ResultadosSimulacoes = new LocalRepository<ResultadoSimulacao>(context);
             Parcelas = new LocalRepository<Parcela>(context);
         }

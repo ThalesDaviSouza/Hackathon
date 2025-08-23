@@ -5,7 +5,7 @@ using SimuladorCredito.Interfaces.Repositories;
 
 namespace SimuladorCredito.Infra.Repositories
 {
-    public class ProdutoRepository : IProdutoRepository<Produto>
+    public class ProdutoRepository : IProdutoRepository
     {
         private readonly ProdutoDbContext _context;
 

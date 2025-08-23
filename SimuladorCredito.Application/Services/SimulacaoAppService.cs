@@ -14,13 +14,15 @@ namespace SimuladorCredito.Application.Services
         private readonly IMapper _mapper;
         private readonly IEventHubService _eventHubService;
         private readonly ISimulacaoService _simulacaoService;
+        private readonly IUnitOfWork _uow;
 
         public SimulacaoAppService(
             IEnumerable<IResultadoSimulacaoCalculator> calculators,
             ProdutoAppService produtoAppService,
             IMapper mapper,
             IEventHubService eventHubService,
-            ISimulacaoService simulacaoService
+            ISimulacaoService simulacaoService,
+            IUnitOfWork uow
         )
         {
             _calculators = calculators;
@@ -28,6 +30,7 @@ namespace SimuladorCredito.Application.Services
             _mapper = mapper;
             _eventHubService = eventHubService;
             _simulacaoService = simulacaoService;
+            _uow = uow;
         }
 
         public async Task<SimulationCreatedDto> Simulate(short prazo, decimal valorDesejado)
@@ -44,8 +47,10 @@ namespace SimuladorCredito.Application.Services
                 prazo,
                 valorDesejado
             );
-
+            
+            await _uow.BeginTransactionAsync();
             await _simulacaoService.SaveSimulation(simulacao);
+            await _uow.CommitAsync();
 
             var simulacaoDto = _mapper.Map<SimulationCreatedDto>(simulacao);
 

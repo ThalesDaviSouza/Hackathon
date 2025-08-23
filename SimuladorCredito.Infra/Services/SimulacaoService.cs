@@ -1,3 +1,5 @@
+using SimuladorCredito.Application.Dtos.Responses;
+using SimuladorCredito.Application.ReadModels.Responses;
 using SimuladorCredito.Domain.Entities;
 using SimuladorCredito.Interfaces.Repositories;
 using SimuladorCredito.Interfaces.Services;
@@ -6,9 +8,9 @@ namespace SimuladorCredito.Infra.Services
 {
     public class SimulacaoService : ISimulacaoService
     {
-        private readonly IBaseLocalRepository<Simulacao> _simulacaoRepository;
+        private readonly ISimulacaoRepository _simulacaoRepository;
 
-        public SimulacaoService(IBaseLocalRepository<Simulacao> simulacaoRepository)
+        public SimulacaoService(ISimulacaoRepository simulacaoRepository)
         {
             _simulacaoRepository = simulacaoRepository;
         }
@@ -35,6 +37,12 @@ namespace SimuladorCredito.Infra.Services
             }
 
             return simulacao;
+        }
+
+        public async Task<PagedReturnDto<SimulationResumeDto>> GetPaged(int page, int pageSize)
+        {
+            int offset = (page-1) * pageSize;
+            return await _simulacaoRepository.GetPaged(offset, pageSize);
         }
 
         public async Task SaveSimulation(Simulacao simulacao)

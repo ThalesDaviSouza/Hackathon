@@ -1,3 +1,5 @@
+using SimuladorCredito.Application.Dtos.Responses;
+using SimuladorCredito.Application.ReadModels.Responses;
 using SimuladorCredito.Domain.Entities;
 
 namespace SimuladorCredito.Interfaces.Services
@@ -11,6 +13,8 @@ namespace SimuladorCredito.Interfaces.Services
             short prazo,
             decimal valorDesejado
         );
+
+        Task<PagedReturnDto<SimulationResumeDto>> GetPaged(int page, int pageSize);
 
         public Task SaveSimulation(Simulacao simulacao);
         

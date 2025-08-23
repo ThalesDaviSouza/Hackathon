@@ -11,7 +11,7 @@ namespace SimuladorCredito.Infra.Persistance.Configuration
             {
                 entity.ToTable("Simulacoes");
 
-                entity.HasKey(p => p.CoSimulacao );
+                entity.HasKey(p => p.CoSimulacao);
 
                 entity.Property(p => p.CoSimulacao).HasColumnName("CO_SIMULACAO");
                 entity.Property(p => p.CoProduto).HasColumnName("CO_PRODUTO").IsRequired();
