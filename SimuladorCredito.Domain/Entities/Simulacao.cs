@@ -4,6 +4,7 @@ namespace SimuladorCredito.Domain.Entities
     {
         public int CoSimulacao { get; set; }
         public int CoProduto { get; set; }
+        public decimal PcTaxaJuros { get; set; }
 
         public virtual ICollection<ResultadoSimulacao> ResultadosSimulacao { get; set; } = new List<ResultadoSimulacao>();
 

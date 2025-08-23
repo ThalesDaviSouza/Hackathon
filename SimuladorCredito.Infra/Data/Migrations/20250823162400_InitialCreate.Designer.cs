@@ -11,7 +11,7 @@ using SimuladorCredito.Infra.Persistance;
 namespace SimuladorCredito.Infra.Data.Migrations
 {
     [DbContext(typeof(BancoLocalDbContext))]
-    [Migration("20250822014722_InitialCreate")]
+    [Migration("20250823162400_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -85,6 +85,11 @@ namespace SimuladorCredito.Infra.Data.Migrations
                     b.Property<int>("CoProduto")
                         .HasColumnType("int")
                         .HasColumnName("CO_PRODUTO");
+
+                    b.Property<decimal>("PcTaxaJuros")
+                        .HasPrecision(12, 8)
+                        .HasColumnType("decimal(12,8)")
+                        .HasColumnName("PC_TAXA_JUROS");
 
                     b.HasKey("CoSimulacao");
 

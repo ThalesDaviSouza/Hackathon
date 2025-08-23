@@ -11,6 +11,7 @@ namespace SimuladorCredito.Application.Profiles
             CreateMap<Simulacao, SimulationCreatedDto>()
                 .ForMember(dest => dest.idSimulacao, opt => opt.MapFrom(src => src.CoSimulacao))
                 .ForMember(dest => dest.codigoProduto, opt => opt.MapFrom(src => src.CoProduto))
+                .ForMember(dest => dest.taxaJuros, opt => opt.MapFrom(src => src.PcTaxaJuros))
                 .ForMember(dest => dest.resultadosSimulacao, opt => opt.MapFrom(src => src.ResultadosSimulacao));
         }
     }

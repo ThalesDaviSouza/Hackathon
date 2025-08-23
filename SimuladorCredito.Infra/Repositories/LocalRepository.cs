@@ -15,7 +15,7 @@ namespace SimuladorCredito.Infra.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task Create(T newEntity)
+        public virtual async Task Create(T newEntity)
         {
             await _dbSet.AddAsync(newEntity);
         }

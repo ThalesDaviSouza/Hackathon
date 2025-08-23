@@ -16,7 +16,7 @@ namespace SimuladorCredito.Api.Configuration
         {
             // Repositórios
             services.AddScoped<IProdutoRepository<Produto>, ProdutoRepository>();
-            services.AddScoped<IBaseLocalRepository<Simulacao>, LocalRepository<Simulacao>>();
+            services.AddScoped<IBaseLocalRepository<Simulacao>, SimulacaoRepository>();
             services.AddScoped<IBaseLocalRepository<ResultadoSimulacao>, LocalRepository<ResultadoSimulacao>>();
             services.AddScoped<IBaseLocalRepository<Parcela>, LocalRepository<Parcela>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -26,6 +26,7 @@ namespace SimuladorCredito.Api.Configuration
             services.AddScoped<IResultadoSimulacaoCalculator, SACCalculator>();
             services.AddScoped<IResultadoSimulacaoCalculator, PRICECalculator>();
             services.AddScoped<IEventHubService, EventHubService>();
+            services.AddScoped<ISimulacaoService, SimulacaoService>();
 
             // Serviços de Application
             services.AddScoped<ProdutoAppService>();

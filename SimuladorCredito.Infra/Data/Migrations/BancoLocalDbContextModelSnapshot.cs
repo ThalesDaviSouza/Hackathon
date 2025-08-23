@@ -83,6 +83,11 @@ namespace SimuladorCredito.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CO_PRODUTO");
 
+                    b.Property<decimal>("PcTaxaJuros")
+                        .HasPrecision(12, 8)
+                        .HasColumnType("decimal(12,8)")
+                        .HasColumnName("PC_TAXA_JUROS");
+
                     b.HasKey("CoSimulacao");
 
                     b.ToTable("Simulacoes", (string)null);

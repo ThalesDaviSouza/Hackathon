@@ -13,21 +13,21 @@ namespace SimuladorCredito.Application.Services
         private readonly ProdutoAppService _produtoAppService;
         private readonly IMapper _mapper;
         private readonly IEventHubService _eventHubService;
-        private readonly IUnitOfWork _uow;
+        private readonly ISimulacaoService _simulacaoService;
 
         public SimulacaoAppService(
             IEnumerable<IResultadoSimulacaoCalculator> calculators,
             ProdutoAppService produtoAppService,
             IMapper mapper,
             IEventHubService eventHubService,
-            IUnitOfWork uow
+            ISimulacaoService simulacaoService
         )
         {
             _calculators = calculators;
             _produtoAppService = produtoAppService;
             _mapper = mapper;
             _eventHubService = eventHubService;
-            _uow = uow;
+            _simulacaoService = simulacaoService;
         }
 
         public async Task<SimulationCreatedDto> Simulate(short prazo, decimal valorDesejado)
@@ -35,39 +35,26 @@ namespace SimuladorCredito.Application.Services
             var produto = await _produtoAppService.GetProdutoToSimulation(valorDesejado, prazo);
 
             if (produto == null)
-                throw new NotFoundException("Não foi encontrado um produto dentro dos parâmetros solicitados");
+                throw new BadRequestException("Não existe um produto que atenda aos parâmetros solicitados");
 
-            Simulacao simulacao = new Simulacao();
-            simulacao.CoProduto = produto.CoProduto;
+            var simulacao = _simulacaoService.CreateSimulation(
+                _calculators,
+                produto.CoProduto,
+                produto.PcTaxaJuros,
+                prazo,
+                valorDesejado
+            );
 
-            decimal taxaJuros = produto.PcTaxaJuros;
-            foreach (var calculator in _calculators)
-            {
-                var resultadoSimulacao = calculator.Simulate(prazo, valorDesejado, taxaJuros);
-                resultadoSimulacao.CoResultaSimulacao = simulacao.ResultadosSimulacao.Count;
-                simulacao.ResultadosSimulacao.Add(resultadoSimulacao);
-            }
+            await _simulacaoService.SaveSimulation(simulacao);
 
-            var simulacaoSaved = await SaveSimulation(simulacao);
-
-            var simulacaoDto = _mapper.Map<SimulationCreatedDto>(simulacaoSaved);
+            var simulacaoDto = _mapper.Map<SimulationCreatedDto>(simulacao);
 
             simulacaoDto.descricaoProduto = produto.NoProduto;
-            simulacaoDto.taxaJuros = produto.PcTaxaJuros;
 
 
             await _eventHubService.SendAsync(simulacaoDto);
 
             return simulacaoDto;
-        }
-
-        public async Task<Simulacao> SaveSimulation(Simulacao simulacao)
-        {
-            await _uow.BeginTransactionAsync();
-            await _uow.Simulacoes.Create(simulacao);
-            await _uow.CommitAsync();
-
-            return simulacao;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace SimuladorCredito.Application.Services
 
         public async Task<IEnumerable<SimulationCreatedDto>> GetAll()
         {
+            // TODO: refatorar isso
             var results = await _uow.ResultadosSimulacoes.Get();
             var parcelas = await _uow.Parcelas.Get();
             var simulations = await _uow.Simulacoes.Get();
