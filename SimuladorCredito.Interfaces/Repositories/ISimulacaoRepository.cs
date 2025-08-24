@@ -6,6 +6,8 @@ namespace SimuladorCredito.Interfaces.Repositories
 {
     public interface ISimulacaoRepository : IBaseLocalRepository<Simulacao>
     {
-        public Task<PagedReturnDto<SimulationResumeDto>> GetPaged(int offset, int pageSize);
+        Task<PagedReturnDto<SimulationResumeDto>> GetPaged(int offset, int pageSize);
+
+        Task<IEnumerable<SimulationsByProductDto>> GetGroupedByProducts();
     }
 }

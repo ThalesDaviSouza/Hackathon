@@ -3,13 +3,13 @@ using System.Diagnostics;
 
 namespace SimuladorCredito.Api.Middlewares
 {
-    public class MetricsMiddleware
+    public class TelemetryMiddleware
     {
         private readonly RequestDelegate _next;
 
         private static readonly ConcurrentDictionary<string, EndpointMetrics> _metrics = new();
 
-        public MetricsMiddleware(RequestDelegate next)
+        public TelemetryMiddleware(RequestDelegate next)
         {
             _next = next;
         }

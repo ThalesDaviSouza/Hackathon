@@ -10,7 +10,7 @@ namespace SimuladorCredito.Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var metrics = MetricsMiddleware.GetMetrics()
+            var metrics = TelemetryMiddleware.GetMetrics()
                 .Select(item => new
                 {
                     endpoint = item.Key,

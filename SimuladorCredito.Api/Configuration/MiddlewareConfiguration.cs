@@ -9,7 +9,7 @@ namespace SimuladorCredito.Api.Configuration
         {
             app.UseMiddleware<ErrorMiddleware>();
             app.UseResponseCaching();
-            app.UseMiddleware<MetricsMiddleware>();
+            app.UseMiddleware<TelemetryMiddleware>();
 
             app.UseSerilogRequestLogging(options =>
             {

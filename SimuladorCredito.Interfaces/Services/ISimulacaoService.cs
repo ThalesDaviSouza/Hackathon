@@ -6,7 +6,7 @@ namespace SimuladorCredito.Interfaces.Services
 {
     public interface ISimulacaoService
     {
-        public Simulacao CreateSimulation(
+        Simulacao CreateSimulation(
             IEnumerable<IResultadoSimulacaoCalculator> calculators,
             int coProduto,
             decimal taxaJuros,
@@ -16,7 +16,9 @@ namespace SimuladorCredito.Interfaces.Services
 
         Task<PagedReturnDto<SimulationResumeDto>> GetPaged(int page, int pageSize);
 
-        public Task SaveSimulation(Simulacao simulacao);
+        Task<IEnumerable<SimulationsByProductDto>> GetGroupedByProducts();
+
+        Task SaveSimulation(Simulacao simulacao);
         
     }
 }

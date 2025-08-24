@@ -34,13 +34,22 @@ namespace SimuladorCredito.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(PagedReturnDto<SimulationResumeDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(
-            [FromQuery] int page,
-            [FromQuery] int pageSize
+            [FromQuery] int? page,
+            [FromQuery] int? pageSize
         )
         {
-            var pagedResult = await _getSimulacaoAppService.Get(page, pageSize);
+            var pagedResult = await _getSimulacaoAppService.Get(page ?? 1, pageSize ?? 200);
 
             return Ok(pagedResult);
+        }
+
+        [HttpGet("por-produto")]
+        [ProducesResponseType(typeof(SimulationsByProductDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByProducts()
+        {
+            var simulationsByProduct = await _getSimulacaoAppService.GetByProducts();
+
+            return Ok(simulationsByProduct);
         }
 
         [HttpGet("all")]

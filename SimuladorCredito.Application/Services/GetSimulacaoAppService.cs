@@ -54,5 +54,10 @@ namespace SimuladorCredito.Application.Services
 
             return retorno;
         }
-    }
+
+        public async Task<IEnumerable<SimulationsByProductDto>> GetByProducts()
+        {
+            return await _simulacaoService.GetGroupedByProducts();
+        }
+     }
 }

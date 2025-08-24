@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -19,7 +20,8 @@ namespace SimuladorCredito.Infra.Data.Migrations
                     CO_PRODUTO = table.Column<int>(type: "int", nullable: false),
                     PC_TAXA_JUROS = table.Column<decimal>(type: "decimal(12,8)", precision: 12, scale: 8, nullable: false),
                     VALOR_DESEJADO = table.Column<decimal>(type: "decimal(22,10)", precision: 22, scale: 10, nullable: false),
-                    PRAZO = table.Column<short>(type: "smallint", nullable: false)
+                    PRAZO = table.Column<short>(type: "smallint", nullable: false),
+                    DATA_REFERENCIA = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

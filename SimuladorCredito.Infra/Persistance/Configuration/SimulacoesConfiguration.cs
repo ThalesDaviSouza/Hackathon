@@ -22,6 +22,7 @@ namespace SimuladorCredito.Infra.Persistance.Configuration
                     .HasPrecision(22, 10)
                     .IsRequired();
                 entity.Property(p => p.Prazo).HasColumnName("PRAZO").IsRequired();
+                entity.Property(p => p.DataReferencia).HasColumnName("DATA_REFERENCIA").IsRequired();
 
             });
 

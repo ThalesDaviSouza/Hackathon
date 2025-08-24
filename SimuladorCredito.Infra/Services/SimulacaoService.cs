@@ -39,6 +39,11 @@ namespace SimuladorCredito.Infra.Services
             return simulacao;
         }
 
+        public async Task<IEnumerable<SimulationsByProductDto>> GetGroupedByProducts()
+        {
+            return await _simulacaoRepository.GetGroupedByProducts();
+        }
+
         public async Task<PagedReturnDto<SimulationResumeDto>> GetPaged(int page, int pageSize)
         {
             int offset = (page-1) * pageSize;
