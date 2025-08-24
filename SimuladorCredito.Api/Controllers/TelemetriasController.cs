@@ -18,26 +18,7 @@ namespace SimuladorCredito.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            await _telemetryAppService.Add(new EndpointMetrics
-            {
-                Endpoint = "teste",
-                DataReferencia = DateTime.Now,
-                DurationMs = 1234
-            });
-
             var metrics = await _telemetryAppService.Get();
-
-            // var metrics = TelemetryMiddleware.GetMetrics()
-            //     .Select(item => new
-            //     {
-            //         endpoint = item.Key,
-            //         qtdRequisicoes = item.Value.TotalRequests,
-            //         tempoMedio = item.Value.AverageDuration,
-            //         tempoMinimo = item.Value.MinDuration,
-            //         tempoMaximo = item.Value.MaxDuration,
-            //         percentualSucesso = item.Value.SuccessPercentage
-            //     });
-
             return Ok(metrics);
         }       
     }

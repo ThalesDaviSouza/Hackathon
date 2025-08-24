@@ -8,7 +8,6 @@ namespace SimuladorCredito.Api.Configuration
             services.AddSwaggerConfig();
             services.AddControllers();
             services.AddDependencyInjection();
-            services.AddOpenTelemetryConfiguration("SimuladorCreditoApi");
             services.AddResponseCaching();
 
             return services;

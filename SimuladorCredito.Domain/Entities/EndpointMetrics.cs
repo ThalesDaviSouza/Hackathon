@@ -3,14 +3,14 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace SimuladorCredito.Domain.Entities
 {
-    public class EndpointMetrics
+    public class EndpointMetric
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = null!;
         
         public string Endpoint { get; set; } = string.Empty;
-        public long DurationMs { get; set; }
+        public double Duration { get; set; }
         public DateTime DataReferencia { get; set; }
     }
 }

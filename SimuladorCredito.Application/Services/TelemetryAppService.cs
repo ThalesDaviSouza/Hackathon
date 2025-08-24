@@ -1,26 +1,25 @@
 using SimuladorCredito.Domain.Entities;
-using SimuladorCredito.Interfaces.Repositories;
 using SimuladorCredito.Interfaces.Services;
 
 namespace SimuladorCredito.Application.Services
 {
     public class TelemetryAppService
     {
-        private readonly IMetricsRepository _metricsRepository;
+        private readonly IMetricsService _metricsService;
 
-        public TelemetryAppService(IMetricsRepository metricsRepository)
+        public TelemetryAppService(IMetricsService metricsService)
         {
-            _metricsRepository = metricsRepository;
+            _metricsService = metricsService;
         }
 
-        public async Task Add(EndpointMetrics endpointMetrics)
+        public async Task Add(EndpointMetric endpointMetrics)
         {
-            await _metricsRepository.Add(endpointMetrics);
+            await _metricsService.Add(endpointMetrics);
         }
 
-        public async Task<IEnumerable<EndpointMetrics>> Get()
+        public async Task<IEnumerable<EndpointMetric>> Get()
         {
-            return await _metricsRepository.Get();
+            return await _metricsService.Get();
         }
     }
 }
