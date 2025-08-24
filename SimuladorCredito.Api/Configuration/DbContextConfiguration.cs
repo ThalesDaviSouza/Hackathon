@@ -15,6 +15,8 @@ namespace SimuladorCredito.Api.Configuration
                 options.UseSqlServer(Environment.GetEnvironmentVariable("LocalConnection"))
             );
 
+            builder.AddMongoDbConfiguration();
+
             return builder;
         }
     }

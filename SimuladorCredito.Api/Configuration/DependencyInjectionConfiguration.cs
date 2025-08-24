@@ -20,6 +20,7 @@ namespace SimuladorCredito.Api.Configuration
             services.AddScoped<IBaseLocalRepository<ResultadoSimulacao>, LocalRepository<ResultadoSimulacao>>();
             services.AddScoped<IBaseLocalRepository<Parcela>, LocalRepository<Parcela>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IMetricsRepository, MetricsRepository>();
 
             // Serviços de Infra
             services.AddScoped<IProdutoService, ProdutoService>();
@@ -32,6 +33,7 @@ namespace SimuladorCredito.Api.Configuration
             services.AddScoped<ProdutoAppService>();
             services.AddScoped<SimulacaoAppService>();
             services.AddScoped<GetSimulacaoAppService>();
+            services.AddScoped<TelemetryAppService>();
 
             return services;
         }

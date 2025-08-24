@@ -12,6 +12,20 @@ services:
     volumes:
       - sqlserver_data:/var/opt/mssql
 
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: hackathon23
+      MONGO_INITDB_DATABASE: SimuladorCreditoDb
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    volumes:
+      - mongodb_data:/data/db
+
   api:
     build:
       context: .
@@ -31,3 +45,4 @@ networks:
 
 volumes:
   sqlserver_data:
+  mongodb_data:
