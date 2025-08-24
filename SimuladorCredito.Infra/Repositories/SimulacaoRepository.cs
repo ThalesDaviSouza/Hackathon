@@ -27,6 +27,16 @@ namespace SimuladorCredito.Infra.Repositories
 
         public async Task<IEnumerable<SimulationsByProductDto>> GetGroupedByProducts()
         {
+            var groupParcelas = _context.Parcelas
+                .AsNoTracking()
+                .GroupBy(p => p.CoSimulacao)
+                .Select(p => new
+                {
+                    CoSimulacao = p.Key,
+                    valorMedioPrestacao = p.Average(pp => pp.ValorAmortizacao + pp.ValorJuros),
+                    valorTotalCredito = p.Sum(pp => pp.ValorAmortizacao + pp.ValorJuros)
+                });
+
             var simulationsByProduct = await _dbSet
                 .AsNoTracking()
                 .GroupBy(s => s.DataReferencia)
@@ -39,27 +49,24 @@ namespace SimuladorCredito.Infra.Repositories
                         {
                             codigoProduto = simulations.Key,
                             taxaMediaJuros = simulations.Average(s => s.PcTaxaJuros),
+                            valorTotalDesejado = simulations.Sum(s => s.ValorDesajado),
+                            valorTotalCredito = (
+                                from simulation in simulations
+                                join parcelas in groupParcelas
+                                    on simulation.CoSimulacao equals parcelas.CoSimulacao
+                                select parcelas.valorTotalCredito
+                            ).Sum(),
 
-                            valorMedioPrestacao =
-                            simulations
-                                .SelectMany(s => s.ResultadosSimulacao)
-                                .GroupBy(resultado => resultado.CoSimulacao)
-                                .Select(results => results
-                                    .SelectMany(resultadoGrupo => resultadoGrupo.Parcelas)
-                                    .Sum(parcela => parcela.ValorAmortizacao + parcela.ValorJuros)
-                                    / (results.First().Parcelas.Count * 2)
-                                )
-                                .Average(),
-
-                            valorTotalCredito = simulations
-                                .SelectMany(s => s.ResultadosSimulacao)
-                                .SelectMany(resultado => resultado.Parcelas)
-                                .Sum(parcela => (parcela.ValorAmortizacao + parcela.ValorJuros) / 2), //Pegar a média para exibir
-
-                            valorTotalDesejado = simulations.Sum(s => s.ValorDesajado)
+                            valorMedioPrestacao = (
+                                from simulation in simulations
+                                join parcelas in groupParcelas
+                                    on simulation.CoSimulacao equals parcelas.CoSimulacao
+                                select parcelas.valorMedioPrestacao
+                            ).Average()
                         })
                 })
                 .ToListAsync();
+
 
             if (!simulationsByProduct.Any())
                 return new List<SimulationsByProductDto>();
