@@ -9,6 +9,7 @@ namespace SimuladorCredito.Api.Configuration
             services.AddControllers();
             services.AddDependencyInjection();
             services.AddResponseCaching();
+            services.AddFluentValidation();
 
             return services;
         }
