@@ -10,7 +10,9 @@ namespace SimuladorCredito.Domain.Entities
         public string Id { get; set; } = null!;
         
         public string Endpoint { get; set; } = string.Empty;
+        public string Method { get; set; } = string.Empty;
         public double Duration { get; set; }
+        public int StatusResponse { get; set; }
         public DateTime DataReferencia { get; set; }
     }
 }

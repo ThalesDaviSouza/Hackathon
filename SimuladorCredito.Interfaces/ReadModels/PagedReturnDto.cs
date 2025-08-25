@@ -1,4 +1,4 @@
-namespace SimuladorCredito.Application.Dtos.Responses
+namespace SimuladorCredito.Interfaces.ReadModels
 {
     public record PagedReturnDto<T> where T : class
     {

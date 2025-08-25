@@ -1,4 +1,5 @@
 using SimuladorCredito.Domain.Entities;
+using SimuladorCredito.Interfaces.ReadModels;
 using SimuladorCredito.Interfaces.Services;
 
 namespace SimuladorCredito.Application.Services
@@ -17,9 +18,9 @@ namespace SimuladorCredito.Application.Services
             await _metricsService.Add(endpointMetrics);
         }
 
-        public async Task<IEnumerable<EndpointMetric>> Get()
+        public async Task<TelemetryPerDayDto> Get(DateTime? dataReferencia)
         {
-            return await _metricsService.Get();
+            return await _metricsService.GetPerDay(dataReferencia);
         }
     }
 }

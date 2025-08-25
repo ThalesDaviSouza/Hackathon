@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SimuladorCredito.Application.Dtos.Responses;
-using SimuladorCredito.Application.ReadModels.Responses;
 using SimuladorCredito.Domain.Entities;
 using SimuladorCredito.Infra.Persistance;
+using SimuladorCredito.Interfaces.ReadModels;
 using SimuladorCredito.Interfaces.Repositories;
 
 namespace SimuladorCredito.Infra.Repositories
@@ -71,7 +70,6 @@ namespace SimuladorCredito.Infra.Repositories
             if (!simulationsByProduct.Any())
                 return new List<SimulationsByProductDto>();
 
-            // TODO: buscar no cache antes de buscar no banco
             var produtos = await _produtoRepository.Get();
             var produtosDictionary = produtos.ToDictionary(s => s.CoProduto);
 

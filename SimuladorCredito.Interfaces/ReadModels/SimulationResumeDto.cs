@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using SimuladorCredito.Interfaces.ReadModels.Converters;
 
-namespace SimuladorCredito.Application.ReadModels.Responses
+namespace SimuladorCredito.Interfaces.ReadModels
 {
     public record SimulationResumeDto
     {

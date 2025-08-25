@@ -27,6 +27,8 @@ namespace SimuladorCredito.Api.Middlewares
                 DataReferencia = DateTime.Now,
                 Endpoint = context.Request.Path,
                 Duration = sw.Elapsed.TotalMilliseconds,
+                StatusResponse = context.Response.StatusCode,
+                Method = context.Request.Method
             };
 
             await _metricsService.Add(metric);

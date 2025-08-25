@@ -3,10 +3,10 @@ using SimuladorCredito.Interfaces.ReadModels.Converters;
 
 namespace SimuladorCredito.Interfaces.ReadModels
 {
-    public record SimulationsByProductDto
+    public record TelemetryPerDayDto
     {
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime dataReferencia { get; set; }
-        public IEnumerable<SimulationsByProductItemDto> simulacoes { get; set; } = new List<SimulationsByProductItemDto>();
+        public IEnumerable<TelemetryPerDayItemDto> listaEndpoints { get; set; } = new List<TelemetryPerDayItemDto>();
     }
 }

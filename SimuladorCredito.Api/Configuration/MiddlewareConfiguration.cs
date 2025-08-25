@@ -7,9 +7,9 @@ namespace SimuladorCredito.Api.Configuration
     {
         public static IApplicationBuilder ConfigMiddlewares(this IApplicationBuilder app)
         {
+            app.UseMiddleware<TelemetryMiddleware>();
             app.UseMiddleware<ErrorMiddleware>();
             app.UseResponseCaching();
-            app.UseMiddleware<TelemetryMiddleware>();
 
             app.UseSerilogRequestLogging(options =>
             {

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using SimuladorCredito.Application.Services;
-using SimuladorCredito.Domain.Entities;
 
 namespace SimuladorCredito.Api.Controllers
 {
@@ -16,9 +15,10 @@ namespace SimuladorCredito.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] DateTime? dataReferencia)
         {
-            var metrics = await _telemetryAppService.Get();
+            var metrics = await _telemetryAppService.Get(dataReferencia);
+
             return Ok(metrics);
         }       
     }

@@ -1,6 +1,5 @@
-using SimuladorCredito.Application.Dtos.Responses;
-using SimuladorCredito.Application.ReadModels.Responses;
 using SimuladorCredito.Domain.Entities;
+using SimuladorCredito.Interfaces.ReadModels;
 using SimuladorCredito.Interfaces.Repositories;
 using SimuladorCredito.Interfaces.Services;
 

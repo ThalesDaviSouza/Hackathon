@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SimuladorCredito.Application.Dtos.Requests;
 using SimuladorCredito.Application.Dtos.Responses;
-using SimuladorCredito.Application.ReadModels.Responses;
 using SimuladorCredito.Application.Services;
+using SimuladorCredito.Interfaces.ReadModels;
 
 namespace SimuladorCredito.Api.Controllers
 {
@@ -33,6 +33,7 @@ namespace SimuladorCredito.Api.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(PagedReturnDto<SimulationResumeDto>), StatusCodes.Status200OK)]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> Get(
             [FromQuery] int? page,
             [FromQuery] int? pageSize
@@ -45,6 +46,7 @@ namespace SimuladorCredito.Api.Controllers
 
         [HttpGet("por-produto")]
         [ProducesResponseType(typeof(SimulationsByProductDto), StatusCodes.Status200OK)]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetByProducts()
         {
             var simulationsByProduct = await _getSimulacaoAppService.GetByProducts();
@@ -52,12 +54,5 @@ namespace SimuladorCredito.Api.Controllers
             return Ok(simulationsByProduct);
         }
 
-        [HttpGet("all")]
-        public async Task<IActionResult> GetAll()
-        {
-            var pagedResult = await _getSimulacaoAppService.GetAll();
-
-            return Ok(pagedResult);
-        }        
     }
 }
